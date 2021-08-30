@@ -35,7 +35,7 @@ class App extends Component {
 const mapState = (state) => {
   return {
     smurfs: state.smurfs,
-    loading: state.loading,
+    loading: state.loading
   }
 }
 
