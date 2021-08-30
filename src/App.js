@@ -12,10 +12,8 @@ import { fetchSmurfs } from "./actions";
 import { connect } from 'react-redux'
 
 class App extends Component {
-  componentDidMount(props) {
-    axios.get('http://localhost:3333/smurfs')
-    .then(res => console.log(res))
-    .catch(err => console.log('Axios Error', err));
+  componentDidMount() {
+    this.props.fetchSmurfs()
   }
 
   render() {
@@ -32,14 +30,9 @@ class App extends Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-    smurfs: state.smurfs,
-    loading: state.loading
-  }
-}
 
-export default connect(mapState)(App);
+
+export default connect(null, {fetchSmurfs}) (App);
 
 //Task List:
 //1. Connect the fetchSmurfs actions to the App component.

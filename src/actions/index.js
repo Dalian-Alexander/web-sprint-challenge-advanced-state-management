@@ -1,22 +1,43 @@
 import axios from 'axios';
+import Smurf from '../components/Smurf';
 
-export const LOADING = 'LOADING';
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
-export const SEARCH_FAILED = 'SEARCH_FAILED'
+export const FETCH_START = 'FETCH_START';
+export const FETCH_SUCCESS = 'SEARCH_SUCCESS'
+export const FETCH_FAILED = 'SEARCH_FAILED'
 export const ADD_SMURF = 'ADD_SMURF';
 export const ERROR = 'ERROR';
 
 export const fetchSmurfs = () => (dispatch) => {
-    dispatch({type: LOADING})
-    axios.get(`http://localhost:3333/smurfs`)
+    dispatch({type: FETCH_START})
+    axios.get(`http://localhost:3333/smurfs/`)
         .then(res => {
             console.log(res)
-            dispatch({type: ADD_SMURF , payload: res.data})
+            dispatch({type: FETCH_SUCCESS , payload: res.data})
         })
         .catch(err => { 
             console.log({ err })
             dispatch({type: ERROR, payload: err.message })
         })
+}
+
+export const fetchStart = () => {
+    return({type: FETCH_START})
+}
+
+export const fetchSuccess = (smurf) => {
+    return({type: FETCH_SUCCESS, payload: smurf})
+}
+
+export const fetchFailed = (error) => {
+    return({type: FETCH_FAILED, payload: error})
+}
+
+export const addSmurf = (smurf) => {
+    return({type: ADD_SMURF, payload: smurf})
+}
+
+export const setError = (error) => {
+    return({type: ERROR, payload: error})
 }
 
 //Task List:
